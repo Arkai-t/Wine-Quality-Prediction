@@ -16,14 +16,15 @@ class WineCSVParser:
                     pH : float, sulphates : float, 
                     alcohol : float, quality : int):
         
-        # Get number of lines in the file to calculate the index of the line
+        # Get last index
         with open(self.path, 'r') as f:
-            numLines = len(f.readlines())
+            lastLine = f.readlines()[-1]
+            lastIndex = lastLine.split(',')[-1]
 
         newEntry = pd.DataFrame([[fixedAcidity, volatileAcidity, citricAcid,
                                 residualSugar, chlorides, freeSulfurDioxyde,
                                 totalSulfurDioxyde, density, pH, sulphates,
-                                alcohol, quality, (numLines -1)]])
+                                alcohol, quality, (lastIndex +1)]])
 
         print(newEntry.to_string())
 
