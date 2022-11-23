@@ -2,18 +2,18 @@ import os
 from sklearn.linear_model import LinearRegression
 from joblib import dump, load
 
-from WineCSVParser import WineCSVParser
+from source.WineCSVParser import WineCSVParser
 
 class WineModel:
     model: LinearRegression
-    score : float
+    score : float = 0
 
     def __init__(self):
         self.load()
     
     def predict(self, wine):
         res = self.model.predict([wine])
-        return round(res)
+        return round(res[0])
     
     # Recherche dans db, pas forcément dans cette classe
     def bestWine():
