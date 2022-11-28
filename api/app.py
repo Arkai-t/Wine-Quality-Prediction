@@ -1,9 +1,18 @@
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
+import os
+from dotenv import load_dotenv
 
 from source.WineCSVParser import WineCSVParser
 from source.WineModel import WineModel
+from source import Stats
 
-wineModel = WineModel()
+load_dotenv()
+MODEL_FILE = os.getenv('MODEL_FILE')
+WINES_CSV = os.getenv('WINES_CSV')
+
+
+wineModel = WineModel(MODEL_FILE, WINES_CSV)
 
 app = FastAPI()
 
@@ -23,21 +32,18 @@ async def makePrediction(fixedAcidity : float, volatileAcidity : float,
 
 @app.get("/api/predict")
 async def getPerfectWine():
-    # TODO
-    return {"message": "I send a prediction for the perfect wine"}
+    return wineModel.bestWine()
+    # TODO retourner les valeurs associées à l'id
 
 @app.get("/api/model")
 async def getSerializedModel():
     wineModel.save()
 
-    return {"message": "I send the model"}
+    return FileResponse(MODEL_FILE)
 
 @app.get("/api/model/description")
 async def getModelDescription():
-
-    # TODO score est nul si modèle load
-
-    return wineModel.getdatas()
+    return Stats.readStats()
 
 @app.put("/api/model")
 async def addNewWine(fixedAcidity : float, volatileAcidity : float, 
@@ -49,12 +55,12 @@ async def addNewWine(fixedAcidity : float, volatileAcidity : float,
 
     # TODO: Validate data here
 
-    p = WineCSVParser('./data/Wines.csv')
+    p = WineCSVParser(WINES_CSV)
     p.writeNewWine(fixedAcidity, volatileAcidity, citricAcid, residualSugar, 
                    chlorides, freeSulfurDioxyde, totalSulfurDioxyde, density, 
                    pH, sulphates, alcohol, quality)
 
-    return {"message": "I add a new wine entry in the csv"}
+    return {"message": "Wine added with success"}
 
 @app.post("/api/model/train")
 async def trainModel():
@@ -62,4 +68,4 @@ async def trainModel():
 
     # TODO message erreur
 
-    return {}
+    return {"message": "Model trained with success"}

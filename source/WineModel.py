@@ -9,7 +9,9 @@ class WineModel:
     model : LinearRegression
     stats : dict = 0
 
-    def __init__(self):
+    def __init__(self, path, trainDataPath):
+        self.path = path
+        self.trainDataPath = trainDataPath
         self.load()
     
     def predict(self, wine):
@@ -22,13 +24,13 @@ class WineModel:
 
     # retourner le Model
     def save(self):
-        dump(self.model, "./data/model.joblib")
+        dump(self.model, self.path)
         Stats.saveStats(self.stats)
 
     # Load model
     def load(self):
-        if os.path.isfile("./data/model.joblib"):
-            self.model = load("./data/model.joblib")
+        if os.path.isfile(self.path):
+            self.model = load(self.path)
             self.stats = Stats.readStats()
         else:
             self.model = self.train()
@@ -39,10 +41,10 @@ class WineModel:
      
     # Train model + met à jour score
     def train(self):
-        if not os.path.isfile("./data/Wines.csv"):
+        if not os.path.isfile(self.trainDataPath):
             raise Exception("No dataset")
         
-        parser = WineCSVParser("./data/Wines.csv")
+        parser = WineCSVParser(self.trainDataPath)
         data = parser.readCSV()
 
         X = data[list(data.columns)[:-1]]

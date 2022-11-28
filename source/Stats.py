@@ -1,7 +1,11 @@
+import os
+from dotenv import load_dotenv
 import json
 
+load_dotenv()
+
 # mettre dans un fchier de conf
-statsfile = "./data/stats"
+statsfile = os.getenv('STATS_FILE')
 
 def readStats() -> dict:
     with open(statsfile, "r") as file:
