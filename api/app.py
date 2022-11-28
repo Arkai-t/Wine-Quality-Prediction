@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 
 from source.WineCSVParser import WineCSVParser
+from source.WineModel import WineModel
+
+wineModel = WineModel()
 
 app = FastAPI()
 
@@ -10,20 +13,31 @@ async def makePrediction(fixedAcidity : float, volatileAcidity : float,
                          chlorides : float, freeSulfurDioxyde : float,
                          totalSulfurDioxyde : float, density : float,
                          pH : float, sulphates : float, 
-                         alcohol : float, quality : int):
-    return {"message": "I send a prediction for a given wine, between 0 and 10"}
+                         alcohol : float) :
+
+    wine = [fixedAcidity, volatileAcidity, citricAcid, residualSugar, chlorides, freeSulfurDioxyde, totalSulfurDioxyde, density, pH, sulphates, alcohol]
+
+    res = wineModel.predict(wine)
+
+    return {"wineScore": res}
 
 @app.get("/api/predict")
 async def getPerfectWine():
+    # TODO
     return {"message": "I send a prediction for the perfect wine"}
 
 @app.get("/api/model")
 async def getSerializedModel():
+    wineModel.save()
+
     return {"message": "I send the model"}
 
 @app.get("/api/model/description")
 async def getModelDescription():
-    return {"message": "I send parameters of the model, metrics on the last training, and other things"}
+
+    # TODO score est nul si modèle load
+
+    return wineModel.getdatas()
 
 @app.put("/api/model")
 async def addNewWine(fixedAcidity : float, volatileAcidity : float, 
@@ -44,4 +58,8 @@ async def addNewWine(fixedAcidity : float, volatileAcidity : float,
 
 @app.post("/api/model/train")
 async def trainModel():
-    return {"message": "I train the model with all data"}
+    wineModel.train()
+
+    # TODO message erreur
+
+    return {}

@@ -6,14 +6,15 @@ from source.WineCSVParser import WineCSVParser
 from source import Stats
 
 class WineModel:
-    stats : dict
+    model : LinearRegression
+    stats : dict = 0
 
     def __init__(self):
         self.load()
     
     def predict(self, wine):
         res = self.model.predict([wine])
-        return round(res)
+        return round(res[0])
     
     # Recherche dans db, pas forcément dans cette classe
     def bestWine(self):
