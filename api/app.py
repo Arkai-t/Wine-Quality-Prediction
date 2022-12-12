@@ -62,7 +62,7 @@ async def addNewWine(fixedAcidity : float, volatileAcidity : float,
 
     return {"message": "Wine added with success"}
 
-@app.post("/api/model/train")
+@app.post("/api/model/retrain")
 async def trainModel():
     wineModel.train()
 
