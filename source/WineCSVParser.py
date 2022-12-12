@@ -24,7 +24,7 @@ class WineCSVParser:
         newEntry = pd.DataFrame([[fixedAcidity, volatileAcidity, citricAcid,
                                 residualSugar, chlorides, freeSulfurDioxyde,
                                 totalSulfurDioxyde, density, pH, sulphates,
-                                alcohol, quality, (lastIndex +1)]])
+                                alcohol, quality, (int(lastIndex) +1)]])
 
         print(newEntry.to_string())
 
