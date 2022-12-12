@@ -15,20 +15,41 @@ class WineModel:
         self.load()
     
     def predict(self, wine):
+        """
+
+        Args:
+            wine (list): list with all qualities of a wine
+
+        Returns:
+            _type_: _description_
+        """
         res = self.model.predict([wine])
         return round(res[0])
     
     # Recherche dans db, pas forcément dans cette classe
     def bestWine(self):
+        """
+
+        Returns:
+            _type_: _description_
+        """
         return self.stats["bestWineId"]
 
     # retourner le Model
     def save(self):
+        """
+        Save the trained model in model.joblib file
+        Update the statistics of the model
+        """
         dump(self.model, self.path)
         Stats.saveStats(self.stats)
 
     # Load model
     def load(self):
+        """
+        Load the model from model.joblib if the file exist
+        Else train the model
+        """
         if os.path.isfile(self.path):
             self.model = load(self.path)
             self.stats = Stats.readStats()
@@ -36,11 +57,23 @@ class WineModel:
             self.model = self.train()
 
     # Get model datas
-    def getdatas(self):
+    def getdatas(self) -> dict:
+        """
+        Return the statistics of the model
+
+        Returns:
+            dict: Statistics of the model
+        """
         return self.stats
      
     # Train model + met à jour score
     def train(self):
+        """
+        Train the model and update the score
+
+        Raises:
+            Exception: If dataset doesn't exist
+        """
         if not os.path.isfile(self.trainDataPath):
             raise Exception("No dataset")
         

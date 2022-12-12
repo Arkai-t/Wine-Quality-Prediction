@@ -2,9 +2,20 @@ import pandas as pd
 
 class WineCSVParser:
     def __init__(self, path) -> None:
+        """
+
+        Args:
+            path (str): path used for a csv file with wine data
+        """
         self.path = path
 
     def readCSV(self) -> pd.DataFrame:
+        """
+        Read a csv file with wines data
+
+        Returns:
+            pd.DataFrame: _description_
+        """
         df =  pd.read_csv(self.path, header=0, index_col="Id")
         return df
 
@@ -15,6 +26,23 @@ class WineCSVParser:
                     totalSulfurDioxyde : float, density : float,
                     pH : float, sulphates : float, 
                     alcohol : float, quality : int):
+        """
+        Add a new wine in the csv file
+
+        Args:
+            fixedAcidity (float): _description_
+            volatileAcidity (float): _description_
+            citricAcid (float): _description_
+            residualSugar (float): _description_
+            chlorides (float): _description_
+            freeSulfurDioxyde (float): _description_
+            totalSulfurDioxyde (float): _description_
+            density (float): _description_
+            pH (float): _description_
+            sulphates (float): _description_
+            alcohol (float): _description_
+            quality (int): _description_
+        """
         
         # Get last index
         with open(self.path, 'r') as f:
