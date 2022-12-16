@@ -32,4 +32,4 @@ Le modèle utilise une régression linéaire pour prédire la qualité d'un vin.
 
 Expliquer pourquoi [...]  
 
-Choix d'un vin valide ou non -> Analyse des données présente dans le csv ainsi que des recherches et extrapolation.
+Choix d'un vin valide ou non -> Analyse des données présente dans le csv ainsi que des recherches et extrapolation. Les limites choisies ne sont pas forcément représentative de la réalité.
