@@ -30,4 +30,6 @@ Pour exécuter les tests :
 
 Le modèle utilise une régression linéaire pour prédire la qualité d'un vin.  
 
-Expliquer pourquoi [...]
+Expliquer pourquoi [...]  
+
+Choix d'un vin valide ou non -> Analyse des données présente dans le csv ainsi que des recherches et extrapolation.
