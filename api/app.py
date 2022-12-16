@@ -25,9 +25,9 @@ async def makePrediction(fixedAcidity : float, volatileAcidity : float,
                          pH : float, sulphates : float, 
                          alcohol : float) :
 
-    if not WineValidation.isWineValid(fixedAcidity, volatileAcidity, citricAcid, residualSugar, 
+    if (not WineValidation.isWineValid(fixedAcidity, volatileAcidity, citricAcid, residualSugar, 
                                       chlorides, freeSulfurDioxyde, totalSulfurDioxyde, density, 
-                                      pH, sulphates, alcohol):
+                                      pH, sulphates, alcohol)):
         raise HTTPException(status_code=422, detail="Wine not valid")
 
     wine = [fixedAcidity, volatileAcidity, citricAcid, residualSugar, chlorides, freeSulfurDioxyde, totalSulfurDioxyde, density, pH, sulphates, alcohol]
@@ -58,9 +58,9 @@ async def addNewWine(fixedAcidity : float, volatileAcidity : float,
                      pH : float, sulphates : float, 
                      alcohol : float, quality : int):
 
-    if not WineValidation.isWineValidWithQuality(fixedAcidity, volatileAcidity, citricAcid, residualSugar, 
+    if (not WineValidation.isWineValidWithQuality(fixedAcidity, volatileAcidity, citricAcid, residualSugar, 
                                       chlorides, freeSulfurDioxyde, totalSulfurDioxyde, density, 
-                                      pH, sulphates, alcohol, quality):
+                                      pH, sulphates, alcohol, quality)):
         raise HTTPException(status_code=422, detail="Wine not valid")
 
     p = WineCSVParser(WINES_CSV)
