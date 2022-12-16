@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 import os
 from dotenv import load_dotenv
@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from source.WineCSVParser import WineCSVParser
 from source.WineModel import WineModel
 from source import Stats
+from source import WineValidation
 
 load_dotenv()
 MODEL_FILE = os.getenv('MODEL_FILE')
@@ -24,6 +25,11 @@ async def makePrediction(fixedAcidity : float, volatileAcidity : float,
                          pH : float, sulphates : float, 
                          alcohol : float) :
 
+    if not WineValidation.isWineValid(fixedAcidity, volatileAcidity, citricAcid, residualSugar, 
+                                      chlorides, freeSulfurDioxyde, totalSulfurDioxyde, density, 
+                                      pH, sulphates, alcohol):
+        raise HTTPException(status_code=422, detail="Wine not valid")
+
     wine = [fixedAcidity, volatileAcidity, citricAcid, residualSugar, chlorides, freeSulfurDioxyde, totalSulfurDioxyde, density, pH, sulphates, alcohol]
 
     res = wineModel.predict(wine)
@@ -33,7 +39,6 @@ async def makePrediction(fixedAcidity : float, volatileAcidity : float,
 @app.get("/api/predict")
 async def getPerfectWine():
     return wineModel.bestWine()
-    # TODO retourner les valeurs associées à l'id
 
 @app.get("/api/model")
 async def getSerializedModel():
@@ -53,7 +58,10 @@ async def addNewWine(fixedAcidity : float, volatileAcidity : float,
                      pH : float, sulphates : float, 
                      alcohol : float, quality : int):
 
-    # TODO: Validate data here
+    if not WineValidation.isWineValidWithQuality(fixedAcidity, volatileAcidity, citricAcid, residualSugar, 
+                                      chlorides, freeSulfurDioxyde, totalSulfurDioxyde, density, 
+                                      pH, sulphates, alcohol, quality):
+        raise HTTPException(status_code=422, detail="Wine not valid")
 
     p = WineCSVParser(WINES_CSV)
     p.writeNewWine(fixedAcidity, volatileAcidity, citricAcid, residualSugar, 

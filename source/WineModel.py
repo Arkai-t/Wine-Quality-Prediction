@@ -27,13 +27,17 @@ class WineModel:
         return round(res[0])
     
     # Recherche dans db, pas forcément dans cette classe
-    def bestWine(self):
+    def bestWine(self) -> dict:
         """
+        Return the characteristics of the best wine in the database
 
         Returns:
-            _type_: _description_
+            dict: Characteristics of the best wine in the database
         """
-        return self.stats["bestWineId"]
+        parser = WineCSVParser(self.trainDataPath)
+        data = parser.readCSV()
+
+        return data.iloc[self.stats["bestWineId"]]
 
     # retourner le Model
     def save(self):
