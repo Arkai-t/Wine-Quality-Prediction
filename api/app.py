@@ -44,7 +44,7 @@ async def getPerfectWine():
 async def getSerializedModel():
     wineModel.save()
 
-    return FileResponse(MODEL_FILE)
+    return FileResponse(MODEL_FILE, filename='model.joblib')
 
 @app.get("/api/model/description")
 async def getModelDescription():
@@ -73,7 +73,5 @@ async def addNewWine(fixedAcidity : float, volatileAcidity : float,
 @app.post("/api/model/retrain")
 async def trainModel():
     wineModel.train()
-
-    # TODO message erreur
 
     return {"message": "Model trained with success"}

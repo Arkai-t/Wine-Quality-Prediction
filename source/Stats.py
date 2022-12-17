@@ -18,7 +18,7 @@ def readStats() -> dict:
         dic = json.load(file)
         return dic
 
-def saveStats(dic):
+def saveStats(dic) -> None:
     """
     Save the statistics from the model into data/stats.json
 
