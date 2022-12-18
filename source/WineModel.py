@@ -26,7 +26,6 @@ class WineModel:
         res = self.model.predict([wine])
         return round(res[0])
     
-    # Recherche dans db, pas forcément dans cette classe
     def bestWine(self) -> dict:
         """
         Return the characteristics of the best wine in the database
@@ -39,7 +38,6 @@ class WineModel:
 
         return data.iloc[self.stats["bestWineId"]]
 
-    # retourner le Model
     def save(self):
         """
         Save the trained model in model.joblib file
@@ -48,7 +46,6 @@ class WineModel:
         dump(self.model, self.path)
         Stats.saveStats(self.stats)
 
-    # Load model
     def load(self):
         """
         Load the model from model.joblib if the file exist
@@ -60,7 +57,6 @@ class WineModel:
         else:
             self.model = self.train()
 
-    # Get model datas
     def getdatas(self) -> dict:
         """
         Return the statistics of the model
@@ -69,8 +65,7 @@ class WineModel:
             dict: Statistics of the model
         """
         return self.stats
-     
-    # Train model + met à jour score
+    
     def train(self):
         """
         Train the model and update the score

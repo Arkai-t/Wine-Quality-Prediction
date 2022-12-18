@@ -4,7 +4,6 @@ import json
 
 load_dotenv()
 
-# mettre dans un fchier de conf
 statsfile = os.getenv('STATS_FILE')
 
 def readStats() -> dict:
