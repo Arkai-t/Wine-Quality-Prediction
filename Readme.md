@@ -28,8 +28,6 @@ Pour exécuter les tests :
 
 ## Choix technique
 
-Le modèle utilise une régression linéaire pour prédire la qualité d'un vin.  
+Le modèle utilise une régression linéaire pour prédire la qualité d'un vin. C'est un modèle qui suffit dans ce genre de problème.  
 
-Expliquer pourquoi [...]  
-
-Choix d'un vin valide ou non -> Analyse des données présente dans le csv ainsi que des recherches et extrapolation. Les limites choisies ne sont pas forcément représentative de la réalité.
+Le choix d'un vin valide ou non a été faite avec une analyse des données présente dans la base de données ainsi qu'avec des recherches et des extrapolation. Les limites choisies ne sont pas forcément représentative de la réalité.
