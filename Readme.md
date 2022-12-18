@@ -30,4 +30,4 @@ Pour exécuter les tests :
 
 Le modèle utilise une régression linéaire pour prédire la qualité d'un vin. C'est un modèle qui suffit dans ce genre de problème.  
 
-Le choix d'un vin valide ou non a été faite avec une analyse des données présente dans la base de données ainsi qu'avec des recherches et des extrapolation. Les limites choisies ne sont pas forcément représentative de la réalité.
+Le choix d'un vin valide ou non a été faite avec une analyse des données présentent dans la base de données ainsi qu'avec des recherches et des extrapolations. Les limites choisies ne sont pas forcément représentative de la réalité.
